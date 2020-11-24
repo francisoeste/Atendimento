@@ -1,0 +1,8 @@
+{
+    "name":"wdev/atendimento",
+    "autoload":{
+        "psr-4":{
+            "Classes\\":"classes/"
+        }
+    }
+}
