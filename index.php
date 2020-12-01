@@ -1,7 +1,14 @@
 <!DOCTYPE html>
-<?php require_once("conexao/conexao.php") ?>
-<?php require("modulos/top.php"); ?>
-<?php require("modulos/footer.php"); ?>
+<?php
+require_once("config.php");
+
+$cliente = new Cliente();
+
+$cliente->loadById(1);
+
+echo $cliente;
+
+?>
 
 <html>
     <head>
