@@ -1,0 +1,105 @@
+/*
+MySQL Backup
+Source Server Version: 5.5.5
+Source Database: atendimento
+Date: 30/11/2020 23:49:33
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+--  Table structure for `chamado`
+-- ----------------------------
+DROP TABLE IF EXISTS `chamado`;
+CREATE TABLE `chamado` (
+  `CODIGO` int(11) NOT NULL AUTO_INCREMENT,
+  `CODIGO_USUARIO` int(11) DEFAULT NULL,
+  `DATA_ABERTURA` date DEFAULT NULL,
+  `HORA` time DEFAULT NULL,
+  `DATA_FECHAMENTO` date DEFAULT NULL,
+  `HORA_FECHAMENTO` date DEFAULT NULL,
+  `STATUS_CHAMADO` char(1) DEFAULT NULL,
+  PRIMARY KEY (`CODIGO`),
+  KEY `CHAMADO_USUARIO` (`CODIGO_USUARIO`),
+  CONSTRAINT `CHAMADO_USUARIO` FOREIGN KEY (`CODIGO_USUARIO`) REFERENCES `usuario` (`CODIGO`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `cliente`
+-- ----------------------------
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE `cliente` (
+  `CODIGO` int(11) NOT NULL AUTO_INCREMENT,
+  `CLIENTE` varchar(60) DEFAULT NULL,
+  `CNPJ` char(14) DEFAULT NULL,
+  `INSC_ESTADUAL` varchar(9) DEFAULT '',
+  `RAZAO` varchar(80) DEFAULT NULL,
+  `FANTASIA` varchar(50) DEFAULT NULL,
+  `ENDERECO` varchar(50) DEFAULT NULL,
+  `NUMERO` int(10) DEFAULT NULL,
+  `COMPLEMENTO` varchar(40) DEFAULT NULL,
+  `BAIRRO` varchar(30) DEFAULT NULL,
+  `CEP` char(5) DEFAULT NULL,
+  `REFERENCIA` varchar(50) DEFAULT NULL,
+  `OBS` blob DEFAULT NULL,
+  `INSC_MUNICIPAL` varchar(11) DEFAULT NULL,
+  `CPF` char(11) DEFAULT '',
+  PRIMARY KEY (`CODIGO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `itens_chamado`
+-- ----------------------------
+DROP TABLE IF EXISTS `itens_chamado`;
+CREATE TABLE `itens_chamado` (
+  `CODIGO_CHAMADO` int(11) DEFAULT NULL,
+  `CODIGO_USUARIO` int(11) DEFAULT NULL,
+  `CODIGO_CLIENTE` int(11) DEFAULT NULL,
+  `DATA_ATENDIMENTO` date DEFAULT NULL,
+  `HORA_ATENDIMENTO` time DEFAULT NULL,
+  `DATA_FECHAMENTO` date DEFAULT NULL,
+  `HORA_FECHAMENTO` time DEFAULT NULL,
+  `TIPO_ATENDIMENTO` varchar(20) DEFAULT NULL,
+  `OBS_ATENDIMENTO` blob DEFAULT NULL,
+  `EQUIPAMENTOS` blob DEFAULT NULL,
+  `STATUS` char(1) DEFAULT NULL,
+  KEY `CHAMDO_ITEMCHAMADO` (`CODIGO_CHAMADO`) USING BTREE,
+  KEY `CLIENTE_ITEMCHAMADO` (`CODIGO_CLIENTE`),
+  KEY `USUARIO_ITEMCHAMADO` (`CODIGO_USUARIO`),
+  CONSTRAINT `CHAMDO_ITEMCHAMADO` FOREIGN KEY (`CODIGO_CHAMADO`) REFERENCES `chamado` (`CODIGO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `CLIENTE_ITEMCHAMADO` FOREIGN KEY (`CODIGO_CLIENTE`) REFERENCES `cliente` (`CODIGO`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `USUARIO_ITEMCHAMADO` FOREIGN KEY (`CODIGO_USUARIO`) REFERENCES `usuario` (`CODIGO`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `produto`
+-- ----------------------------
+DROP TABLE IF EXISTS `produto`;
+CREATE TABLE `produto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) DEFAULT NULL,
+  `descricao` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `usuario`
+-- ----------------------------
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE `usuario` (
+  `CODIGO` int(11) NOT NULL AUTO_INCREMENT,
+  `NOME` varchar(50) DEFAULT NULL,
+  `ENDERECO` varchar(50) DEFAULT NULL,
+  `NUMERO` varchar(10) DEFAULT NULL,
+  `BAIRRO` varchar(30) DEFAULT NULL,
+  `COMPLEMENTO` varchar(30) DEFAULT NULL,
+  `REFERENCIA` varchar(30) DEFAULT NULL,
+  `USUARIO` varchar(16) DEFAULT NULL,
+  `SENHA` varchar(16) DEFAULT NULL,
+  `EMAIL` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`CODIGO`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records 
+-- ----------------------------
