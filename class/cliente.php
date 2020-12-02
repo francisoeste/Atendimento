@@ -230,7 +230,7 @@ class Cliente {
 
     }
 
-    public function loadById($id) {
+    public function loadId($id) {
 
         $sql = new Sql();
 
@@ -246,7 +246,22 @@ class Cliente {
 
     }
 
-    public function search($search) {
+    //CADASTRA O PRODUTO ATRAVEZ DE STORAGE_PROCEDURE///
+    public function insertCliente() {
+
+        $sql = new Sql();
+
+        $resultado = $sql->select("CALL sp_cliente_insert(:CLIENTE)", array(
+            ':CLIENTE'=>$this->getNome()
+        ));
+
+        //if(count($resultado)) {
+           // $this->setDados($resultado[0]);
+      //  }
+
+    }
+
+    public function loadSearch($search) {
 
         $sql = new Sql();
 

@@ -4,9 +4,11 @@ require_once("config.php");
 
 $cliente = new Cliente();
 
-$cliente->loadById(1);
+$cliente->setNome("teste23");
 
-echo $cliente;
+echo $cliente->getNome();
+
+$cliente->insertCliente();
 
 ?>
 
