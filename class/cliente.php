@@ -211,6 +211,25 @@ class Cliente {
 
     }
 
+    public function setDados($dados) {
+
+        $this->setCodigo($dados['CODIGO']);
+        $this->setNome($dados['CLIENTE']);
+        $this->setCnpj($dados['CNPJ']);
+        $this->setInsc_Estadual($dados['INSC_ESTADUAL']);
+        $this->setRazao_Social($dados['RAZAO']);
+        $this->setFantasia($dados['FANTASIA']);
+        $this->setEndereco($dados['ENDERECO']);
+        $this->setNumero($dados['NUMERO']);
+        $this->setComplemento($dados['COMPLEMENTO']);
+        $this->setCep($dados['CEP']);
+        $this->setReferencia($dados['REFERENCIA']);
+        $this->setInsc_Estadual($dados['INSC_MUNICIPAL']);
+        $this->setCpf($dados['CPF']);
+        $this->setTelefone($dados['TELEFONE']);
+
+    }
+
     public function loadById($id) {
 
         $sql = new Sql();
@@ -221,12 +240,19 @@ class Cliente {
 
         if (count($resultado) > 0) {
 
-            $row = $resultado[0];
-
-            $this->setCodigo($row['CODIGO']);
-            $this->setNome($row['CLIENTE']);
+            $this->setDados[$resultado[0]];
 
         }
+
+    }
+
+    public function search($search) {
+
+        $sql = new Sql();
+
+        return $sql->select("SELECT * FROM cliente WHERE cliente LIKE %:NOME% ", array(
+            ":NOME"=>$search
+        ));
 
     }
 
