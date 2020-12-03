@@ -246,19 +246,27 @@ class Cliente {
 
     }
 
+    public function __construct($nome) {
+        
+        $this->setNome($nome);
+
+    }
+
     //CADASTRA O PRODUTO ATRAVEZ DE STORAGE_PROCEDURE///
     public function insertCliente() {
 
         $sql = new Sql();
 
-        $resultado = $sql->select("CALL sp_cliente_insert(:CLIENTE)", array(
+        try {
+            
+            $sql->query("CALL sp_cliente_insert(:CLIENTE)", array(
             ':CLIENTE'=>$this->getNome()
+
         ));
 
-        //if(count($resultado)) {
-           // $this->setDados($resultado[0]);
-      //  }
-
+        }catch (Exception $e) {
+            echo "Erro : ". $e->getMessage();
+        }
     }
 
     public function loadSearch($search) {

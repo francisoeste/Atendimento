@@ -2,11 +2,7 @@
 <?php
 require_once("config.php");
 
-$cliente = new Cliente();
-
-$cliente->setNome("teste23");
-
-echo $cliente->getNome();
+$cliente = new Cliente("francis");
 
 $cliente->insertCliente();
 
